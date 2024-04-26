@@ -14,7 +14,19 @@ const addProduct = async (req, res) => {
   }
 }
 
+// get all categories product
+const getAllCategories = async (req, res) => {
+  try {
+    const result = await Category.find()
+   console.log('Product data fetched successfully:', result)
+    res.status(200).json(result)
+  }
+  catch (err) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
 
 
-module.exports = { addProduct };
+
+module.exports = { addProduct, getAllCategories };
 
