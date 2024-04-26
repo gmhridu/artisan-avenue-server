@@ -26,7 +26,20 @@ const getAllCategories = async (req, res) => {
   }
 }
 
+// get a single category by id
+
+const getSingleCategory = async (req, res) => {
+  try {
+    const result = await Category.findById(req.params.id)
+    console.log('Category data fetched successfully:', result)
+    res.status(200).json(result)
+  }
+  catch (err) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
 
 
-module.exports = { addProduct, getAllCategories };
+
+module.exports = { addProduct, getAllCategories, getSingleCategory };
 
