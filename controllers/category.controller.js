@@ -39,7 +39,22 @@ const getSingleCategory = async (req, res) => {
   }
 }
 
+// update category by id
+
+const updateCategory = async (req, res) => {
+  try {
+    const body = req.body;
+    const { id } = req.params;
+    const result = await Category.findByIdAndUpdate({_id: id}, body, {new: true, runValidators: true })
+    console.log('Category data updated successfully:', result)
+    res.status(200).json(result)
+  }
+  catch (err) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
 
 
-module.exports = { addProduct, getAllCategories, getSingleCategory };
+
+module.exports = { addProduct, getAllCategories, getSingleCategory, updateCategory };
 
