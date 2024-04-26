@@ -39,6 +39,18 @@ const getSingleProduct = async (req, res) => {
   }
 }
 
+// get categories by ID
+const getCategoriesById = async (req, res) => {
+    try {
+    const result = await Product.findById(req.params.id).populate('category').exec();
+    console.log('Product data fetched successfully:', result);
+    res.status(200).json(result);
+  }
+  catch (err) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+} 
+
 // update product by id
 
 const updateProduct = async (req, res) => {
@@ -69,5 +81,5 @@ const deleteProduct = async (req, res) => {
 }
 
 
-module.exports = { newProduct, getAllProducts, getSingleProduct, updateProduct, deleteProduct };
+module.exports = { newProduct, getAllProducts, getSingleProduct, updateProduct, deleteProduct, getCategoriesById };
 
