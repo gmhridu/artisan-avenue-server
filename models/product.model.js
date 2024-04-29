@@ -15,15 +15,23 @@ const ProductSchema = new mongoose.Schema({
   },
   category: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Category',
-    required: true,
+    ref: 'category',
   },
   image: {
     type: String,
     required: true,
   },
+  hoveredImg: {
+    type: String,
+    required: true,
+  },
+    rating: {
+      type: Number,
+      default: 0,
+    }
 });
 
 const Product = mongoose.model('Product', ProductSchema);
 
 module.exports = Product;
+

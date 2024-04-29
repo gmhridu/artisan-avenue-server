@@ -1,5 +1,5 @@
 const Product = require("../models/product.model");
-
+const Category = require("../models/category.model")
 
 // Create a new product
 const newProduct = async (req, res) => {
@@ -17,7 +17,7 @@ const newProduct = async (req, res) => {
 
 const getAllProducts = async (req, res) => {
   try {
-    const result = await Product.find()
+    const result = await Product.find({}).populate({ path: 'category', model: Category }).exec();
     console.log('Product data fetched successfully:', result)
     res.status(200).json(result)
   }
@@ -28,22 +28,23 @@ const getAllProducts = async (req, res) => {
 
 // Get Single Product By ID
 
-const getSingleProduct = async (req, res) => {
-  try {
-    const result = await Product.findById(req.params.id)
-    console.log('Product data fetched successfully:', result)
-    res.status(200).json(result)
-  }
-  catch (err) {
-    res.status(500).json({ error: 'Internal server error' });
-  }
-}
+// const getSingleProduct = async (req, res) => {
+//   try {
+//     const result = await Product.findById(req.params.id)
+//     console.log('Product data fetched successfully:', result)
+//     res.status(200).json(result)
+//   }
+//   catch (err) {
+//     res.status(500).json({ error: 'Internal server error' });
+//   }
+// }
 
 // get categories by ID
-const getCategoriesById = async (req, res) => {
+const getProductByIdWithCategory = async (req, res) => {
+  const { id } = req.params;
     try {
-    const result = await Product.findById(req.params.id).populate('category').exec();
-    console.log('Product data fetched successfully:', result);
+    const result = await Product.findById({_id : id}).populate({ path: 'category', model: Category }).exec();
+    console.log('Product data fetched successfullyfds sdfsda:', result);
     res.status(200).json(result);
   }
   catch (err) {
@@ -81,5 +82,5 @@ const deleteProduct = async (req, res) => {
 }
 
 
-module.exports = { newProduct, getAllProducts, getSingleProduct, updateProduct, deleteProduct, getCategoriesById };
+module.exports = { newProduct, getAllProducts, updateProduct, deleteProduct,  getProductByIdWithCategory };
 

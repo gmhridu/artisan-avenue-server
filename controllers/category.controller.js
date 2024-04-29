@@ -55,7 +55,6 @@ const updateCategory = async (req, res) => {
 }
 
 // delete category by id
-
 const deleteCategory = async (req, res) => {
   try {
     const { id } = req.params;

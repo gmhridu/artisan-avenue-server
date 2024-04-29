@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const ConnectDB = require('./db/db');
 const productRouter = require('./routes/product.route');
 const categoryRouter = require('./routes/category.route');
+const userRouter = require('./routes/user.route');
 
 
 
@@ -24,6 +25,7 @@ ConnectDB(mongoUri);
 // routes
 app.use('/products', productRouter);
 app.use('/categories', categoryRouter);
+app.use('/users', userRouter);
 
 
 app.use('*', (req, res) => {
