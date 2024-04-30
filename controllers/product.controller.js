@@ -26,6 +26,21 @@ const getAllProducts = async (req, res) => {
   }
 }
 
+// get product by email 
+const getProductWithEmail = async (req, res) => {
+  const userEmail = req.query.email; 
+
+  Product.find({ creatorEmail: userEmail })
+    .then((products) => {
+      res.status(200).json(products);
+    })
+    .catch((error) => {
+      console.error("Error fetching products:", error);
+      res.status(500).json({ error: "Failed to fetch products" });
+    });
+}
+
+
 // Get Single Product By ID
 
 // const getSingleProduct = async (req, res) => {
@@ -82,5 +97,5 @@ const deleteProduct = async (req, res) => {
 }
 
 
-module.exports = { newProduct, getAllProducts, updateProduct, deleteProduct,  getProductByIdWithCategory };
+module.exports = { newProduct, getAllProducts, updateProduct, deleteProduct,  getProductByIdWithCategory, getProductWithEmail };
 

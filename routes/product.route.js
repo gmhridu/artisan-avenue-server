@@ -1,5 +1,5 @@
 const express = require('express');
-const { newProduct, getAllProducts,  updateProduct, deleteProduct, getProductByIdWithCategory } = require('../controllers/product.controller');
+const { newProduct, getAllProducts,  updateProduct, deleteProduct, getProductByIdWithCategory, getProductWithEmail } = require('../controllers/product.controller');
 const productRouter = express.Router();
 
 // create a new product
@@ -10,6 +10,9 @@ productRouter.get('/', getAllProducts);
 
 // get a single product by id
 // productRouter.get('/:id', getSingleProduct);
+
+// get product with email
+productRouter.get('/', getProductWithEmail);
 
 // get categories by product id
 productRouter.get('/:id', getProductByIdWithCategory);

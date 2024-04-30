@@ -30,14 +30,35 @@ const getAllUser = async (req, res) => {
 
 const getSingleUser = async (req, res) => {
   try {
-    const result = await User.findById(req.params.id)
-    console.log('User data fetched successfully:', result)
-    res.status(200).json(result)
-  }
-  catch (err) {
+    const result = await User.findOne(  req.params.id );
+    if (!result) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    console.log('User data fetched successfully:', result);
+    res.status(200).json(result);
+  } catch (err) {
+    console.error('Error fetching user data:', err);
     res.status(500).json({ error: 'Internal server error' });
   }
-}
+};
+
+// Get user by email
+const getUserByEmail = async (req, res) => {
+    const { email } = req.query;
+    try {
+        const user = await User.findOne({ email });
+        if (user) {
+            res.status(200).json(user);
+        } else {
+            res.status(404).json({ message: 'User not found' });
+        }
+    } catch (error) {
+        console.error('Error fetching user by email:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
+
 
 // Update a single user
 
@@ -69,4 +90,4 @@ const deleteUser = async (req, res) => {
 }
 
 
-module.exports = { createUser, getAllUser, getSingleUser, updateUser, deleteUser };
+module.exports = { createUser, getAllUser, getSingleUser, getUserByEmail, updateUser, deleteUser };
